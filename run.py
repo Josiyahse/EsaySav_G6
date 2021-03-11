@@ -1,10 +1,13 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import Repositories.interventionRepository as interventionController
 import Repositories.technicienRepository as technicienController
 from DataBase.manageDatabase import create_databse
 
+
+
 app = Flask(__name__)
 
+# cur = db.cursor()
 
 @app.route('/interventions', methods=["GET"])
 def get_interventions():
@@ -28,6 +31,18 @@ def get_techiciens():
 def get_techicien_by_id(idTech):
     technicien = technicienController.get_by_id(idTech)
     return jsonify(technicien)
+
+@app.route('/intervention/add', methods=['POST'])
+def add_intervention():
+    idTech  = request.args.get('idTech',int)
+    piece   = request.args.get('piece', str)
+    probleme = request.args.get('probleme', str)
+    intervention = (idTech,piece,probleme)
+
+    if interventionController.add_intervention(intervention)==1:
+        return jsonify(intervention)
+    else:
+        return "Probleme avec la base de donnees"
 
 
 if __name__ == '__main__':

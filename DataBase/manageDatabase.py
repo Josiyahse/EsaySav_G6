@@ -56,7 +56,7 @@ def create_databse():
             (3, "Clavier", "Manque de lettres")
         ]
 
-        cursor.executemany("INSERT INTO intervention (idTechnicien, piece, probleme) VALUES (?, ?,  ?)", interventions)
+        cursor.executemany("INSERT INTO intervention (idTechnicien, piece, probleme) VALUES (?, ?, ?)", interventions)
 
         db.commit()
 
