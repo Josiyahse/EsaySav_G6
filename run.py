@@ -7,7 +7,6 @@ from DataBase.manageDatabase import create_databse
 
 app = Flask(__name__)
 
-# cur = db.cursor()
 
 @app.route('/interventions', methods=["GET"])
 def get_interventions():
@@ -35,9 +34,10 @@ def get_techicien_by_id(idTech):
 @app.route('/intervention/add', methods=['POST'])
 def add_intervention():
     idTech  = request.args.get('idTech',int)
+    idClient = request.args.get('idClient',int)
     piece   = request.args.get('piece', str)
     probleme = request.args.get('probleme', str)
-    intervention = (idTech,piece,probleme)
+    intervention = (idTech,idClient,piece,probleme)
 
     if interventionController.add_intervention(intervention)==1:
         return jsonify(intervention)

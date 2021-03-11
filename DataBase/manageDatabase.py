@@ -26,13 +26,14 @@ def create_databse():
                 CREATE TABLE IF NOT EXISTS intervention(
                     idIntervention INTEGER PRIMARY KEY AUTOINCREMENT,
                     idTechnicien INTEGER NOT NULL,
+                    idClient INTEGER NOT NULL,
                     piece TEXT NOT NULL,
-                    probleme TEXT NOT NULL
+                    probleme TEXT NOT NULL      
                 )
             """
         ]
         db = get_db()
-        cursor = db.cursor()
+        cursor = db.cursor()             
         for table in tables:
             cursor.execute(table)
 
@@ -49,14 +50,14 @@ def create_databse():
         # Création des interventions
 
         interventions = [
-            (1, "Carte Graphique", "La carte graphique a cramé"),
-            (2, "Ecran", "L'écran ne fonctionne plus"),
-            (3, "Alimentation", "L'alimentation à cramé"),
-            (2, "Carte Réseau", "Pièce défaillante"),
-            (3, "Clavier", "Manque de lettres")
+            (1,2,"Carte Graphique", "La carte graphique a cramé"),
+            (2,1, "Ecran", "L'écran ne fonctionne plus"),
+            (3,3,"Alimentation", "L'alimentation à cramé"),
+            (2,3,"Carte Réseau", "Pièce défaillante"),
+            (3,2,"Clavier", "Manque de lettres")
         ]
 
-        cursor.executemany("INSERT INTO intervention (idTechnicien, piece, probleme) VALUES (?, ?, ?)", interventions)
+        cursor.executemany("INSERT INTO intervention (idTechnicien,idClient,piece, probleme) VALUES (?, ?, ?,?)", interventions)
 
         db.commit()
 
