@@ -16,21 +16,22 @@ def create_databse():
         # Création des tables
         tables = [
             """
+                          CREATE TABLE IF NOT EXISTS intervention(
+                              idIntervention INTEGER PRIMARY KEY AUTOINCREMENT,
+                              idTechnicien INTEGER NOT NULL,
+                              idClient INTEGER NOT NULL,
+                              piece TEXT NOT NULL,
+                              probleme TEXT NOT NULL      
+                          )
+                      """,
+            """
                 CREATE TABLE IF NOT EXISTS technicien(
                     idTechnicien INTEGER PRIMARY KEY AUTOINCREMENT,
                     nom TEXT NOT NULL,
                     prenom TEXT NOT NULL
                 )
-            """,
             """
-                CREATE TABLE IF NOT EXISTS intervention(
-                    idIntervention INTEGER PRIMARY KEY AUTOINCREMENT,
-                    idTechnicien INTEGER NOT NULL,
-                    idClient INTEGER NOT NULL,
-                    piece TEXT NOT NULL,
-                    probleme TEXT NOT NULL      
-                )
-            """
+
         ]
         db = get_db()
         cursor = db.cursor()             
