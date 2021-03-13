@@ -1,17 +1,17 @@
 import sqlite3
 import os
-
+from dbpath import DB_PATH
 DATABASE_NAME = "easySAV.db"
 
 
 def get_db():
-    connexion = sqlite3.connect(DATABASE_NAME)
+    connexion = sqlite3.connect(DB_PATH)
     return connexion
 
 
 def create_databse():
     try:
-        os.remove(DATABASE_NAME)
+        os.remove(DB_PATH)
 
         # Création des tables
         tables = [
