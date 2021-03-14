@@ -4,6 +4,7 @@ from Repositories.utils import get_cursor
 from Repositories.interventionRepository import add_intervention
 from Repositories.interventionRepository import get_interventions
 from Models.intervention import Intervention
+from run import app
 from DataBase.manageDatabase import get_db
 import json
 
@@ -30,6 +31,8 @@ class InterventionRepositoryTest (unittest.TestCase):
         test_insert = add_intervention(intervention)
         print(test_insert)
         self.assertEqual(test_insert, 1)
+
+
 
 
 if __name__ == '__main__':

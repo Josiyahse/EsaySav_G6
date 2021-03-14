@@ -6,7 +6,7 @@ from DataBase.manageDatabase import create_databse
 app = Flask(__name__)
 
 
-@app.route('/interventions', methods=["GET"])
+@app.route('/interventions')
 def get_interventions():
     interventions = interventionController.get_interventions()
     return jsonify(interventions)
