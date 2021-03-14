@@ -1,9 +1,16 @@
 from flask import Flask, jsonify, request
-import Repositories.interventionRepository as interventionController
-import Repositories.technicienRepository as technicienController
-from DataBase.manageDatabase import create_databse
+import main.Repositories.interventionRepository as interventionController
+import main.Repositories.technicienRepository as technicienController
+from main.DataBase.manageDatabase import create_databse, get_db
+from main.Models.intervention import Intervention
 
 app = Flask(__name__)
+
+
+@app.before_first_request
+def create_database():
+    get_db()
+    create_databse()
 
 
 @app.route('/interventions', methods=["GET"])
@@ -36,15 +43,15 @@ def add_intervention():
     idClient = request.args.get('idClient', int)
     piece = request.args.get('piece', str)
     probleme = request.args.get('probleme', str)
-    intervention = (idTech, idClient, piece, probleme)
+
+    intervention = Intervention(idTech, idClient, piece, probleme)
 
     if interventionController.add_intervention(intervention) == 1:
-        return jsonify(intervention)
+        return "OK"
     else:
         return "Probleme avec la base de donnees"
 
 
 if __name__ == '__main__':
     app.debug = True
-    create_databse()
     app.run()

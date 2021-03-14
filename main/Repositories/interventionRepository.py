@@ -1,6 +1,7 @@
-from Repositories.utils import get_cursor
-from dbpath import DB_PATH
+from main.Repositories.utils import get_cursor
+from main.dbpath import DB_PATH
 import sqlite3
+
 
 def get_interventions():
     cursor = get_cursor()
@@ -13,10 +14,11 @@ def get_by_id(idInter):
     statement = "SELECT * FROM intervention WHERE idIntervention = ?"
     return cursor.execute(statement, [idInter]).fetchone()
 
+
 def add_intervention(intervention):
     con = sqlite3.connect(DB_PATH)
     cur = con.cursor()
-    statement = "INSERT INTO intervention (idTechnicien,idClient, piece, probleme) VALUES (?,?,?,?)"
+    statement = "INSERT INTO intervention (idTechnicien,idClient, piece, probleme) VALUES (?, ?, ?, ?)"
     try:
         cur.execute(statement, [intervention.idTech, intervention.idClient, intervention.piece, intervention.probleme])
         con.commit()

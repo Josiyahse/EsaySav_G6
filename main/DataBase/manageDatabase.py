@@ -1,7 +1,6 @@
 import sqlite3
 import os
-from dbpath import DB_PATH
-DATABASE_NAME = "easySAV.db"
+from main.dbpath import DB_PATH
 
 
 def get_db():

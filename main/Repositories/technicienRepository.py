@@ -1,4 +1,4 @@
-from Repositories.utils import get_cursor
+from main.Repositories.utils import get_cursor
 
 
 def get_techniciens():
