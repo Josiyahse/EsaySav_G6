@@ -3,8 +3,6 @@ import Repositories.interventionRepository as interventionController
 import Repositories.technicienRepository as technicienController
 from DataBase.manageDatabase import create_databse
 
-
-
 app = Flask(__name__)
 
 
@@ -31,15 +29,16 @@ def get_techicien_by_id(idTech):
     technicien = technicienController.get_by_id(idTech)
     return jsonify(technicien)
 
-@app.route('/intervention/add', methods=['POST'])
-def add_intervention():
-    idTech  = request.args.get('idTech',int)
-    idClient = request.args.get('idClient',int)
-    piece   = request.args.get('piece', str)
-    probleme = request.args.get('probleme', str)
-    intervention = (idTech,idClient,piece,probleme)
 
-    if interventionController.add_intervention(intervention)==1:
+@app.route('/intervention/add', methods=['POST','GET'])
+def add_intervention():
+    idTech = request.args.get('idTech', int)
+    idClient = request.args.get('idClient', int)
+    piece = request.args.get('piece', str)
+    probleme = request.args.get('probleme', str)
+    intervention = (idTech, idClient, piece, probleme)
+
+    if interventionController.add_intervention(intervention) == 1:
         return jsonify(intervention)
     else:
         return "Probleme avec la base de donnees"

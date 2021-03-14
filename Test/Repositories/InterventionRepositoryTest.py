@@ -1,6 +1,7 @@
 import unittest
 from Repositories.interventionRepository import get_by_id
 from Repositories.utils import get_cursor
+from Repositories.interventionRepository import add_intervention
 from Repositories.interventionRepository import get_interventions
 from Models.intervention import Intervention
 from DataBase.manageDatabase import get_db
@@ -24,6 +25,11 @@ class InterventionRepositoryTest (unittest.TestCase):
             "probleme": "La carte graphique a cramé"
         })
 
+    def test_insert_intervetion(self):
+        intervention = Intervention(54, 48, 'Ordinateur', 'le processeur')
+        test_insert = add_intervention(intervention)
+        print(test_insert)
+        self.assertEqual(test_insert, 1)
 
 
 if __name__ == '__main__':
