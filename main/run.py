@@ -26,7 +26,7 @@ def get_intervention_by_id(idInter):
     return jsonify(intervention)
 
 
-@app.route('/intervention/add', methods=['POST'])
+@app.route('/intervention/add', methods=['POST', 'GET'])
 def add_intervention():
     idTech = request.args.get('idTech')
     idClient = request.args.get('idClient')
