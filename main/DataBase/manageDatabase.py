@@ -1,39 +1,39 @@
 import sqlite3
 import os
-
-DATABASE_NAME = "easySAV.db"
+from main.dbpath import DB_PATH
 
 
 def get_db():
-    connexion = sqlite3.connect(DATABASE_NAME)
+    connexion = sqlite3.connect(DB_PATH)
     return connexion
 
 
 def create_databse():
-    try:
-        os.remove(DATABASE_NAME)
-
+    # Si le fichier de la bdd existe pas alors on créer la bdd
+    if not os.path.isfile(DB_PATH):
+        get_db()
         # Création des tables
         tables = [
+            """
+                          CREATE TABLE IF NOT EXISTS intervention(
+                              idIntervention INTEGER PRIMARY KEY AUTOINCREMENT,
+                              idTechnicien INTEGER NOT NULL,
+                              idClient INTEGER NOT NULL,
+                              piece TEXT NOT NULL,
+                              probleme TEXT NOT NULL
+                          )
+                      """,
             """
                 CREATE TABLE IF NOT EXISTS technicien(
                     idTechnicien INTEGER PRIMARY KEY AUTOINCREMENT,
                     nom TEXT NOT NULL,
                     prenom TEXT NOT NULL
                 )
-            """,
             """
-                CREATE TABLE IF NOT EXISTS intervention(
-                    idIntervention INTEGER PRIMARY KEY AUTOINCREMENT,
-                    idTechnicien INTEGER NOT NULL,
-                    idClient INTEGER NOT NULL,
-                    piece TEXT NOT NULL,
-                    probleme TEXT NOT NULL      
-                )
-            """
+
         ]
         db = get_db()
-        cursor = db.cursor()             
+        cursor = db.cursor()
         for table in tables:
             cursor.execute(table)
 
@@ -60,6 +60,3 @@ def create_databse():
         cursor.executemany("INSERT INTO intervention (idTechnicien,idClient,piece, probleme) VALUES (?, ?, ?,?)", interventions)
 
         db.commit()
-
-    except Exception as exception:
-        print(exception)

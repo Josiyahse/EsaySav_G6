@@ -1,4 +1,4 @@
-from DataBase.manageDatabase import get_db
+from main.DataBase.manageDatabase import get_db
 
 
 def to_dict(cursor, row):
