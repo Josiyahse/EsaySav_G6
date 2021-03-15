@@ -22,6 +22,6 @@ def add_intervention(intervention):
     try:
         cur.execute(statement, [intervention.idTech, intervention.idClient, intervention.piece, intervention.probleme])
         con.commit()
-        return 1       
+        return 1
     except:
         return 0

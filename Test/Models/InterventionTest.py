@@ -1,5 +1,5 @@
 import unittest
-from Models.intervention import Intervention
+from main.Models.intervention import Intervention
 
 class InterventionTest (unittest.TestCase):
     def test_create_intervention(self):

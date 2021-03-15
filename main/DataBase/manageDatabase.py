@@ -9,9 +9,9 @@ def get_db():
 
 
 def create_databse():
-    try:
-        os.remove(DB_PATH)
-
+    # Si le fichier de la bdd existe pas alors on créer la bdd
+    if not os.path.isfile(DB_PATH):
+        get_db()
         # Création des tables
         tables = [
             """
@@ -20,7 +20,7 @@ def create_databse():
                               idTechnicien INTEGER NOT NULL,
                               idClient INTEGER NOT NULL,
                               piece TEXT NOT NULL,
-                              probleme TEXT NOT NULL      
+                              probleme TEXT NOT NULL
                           )
                       """,
             """
@@ -33,7 +33,7 @@ def create_databse():
 
         ]
         db = get_db()
-        cursor = db.cursor()             
+        cursor = db.cursor()
         for table in tables:
             cursor.execute(table)
 
@@ -60,6 +60,3 @@ def create_databse():
         cursor.executemany("INSERT INTO intervention (idTechnicien,idClient,piece, probleme) VALUES (?, ?, ?,?)", interventions)
 
         db.commit()
-
-    except Exception as exception:
-        print(exception)

@@ -1,8 +1,6 @@
 import unittest
-import sqlite3
-from Repositories.utils import get_cursor
-from Repositories.technicienRepository import get_by_id
-import json
+from main.Repositories.utils import get_cursor
+from main.Repositories.technicienRepository import get_by_id
 
 
 class MyTestCase(unittest.TestCase):

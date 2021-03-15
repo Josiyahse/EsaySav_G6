@@ -1,5 +1,5 @@
 import unittest
-from Models.technicien import Technicien
+from main.Models.technicien import Technicien
 
 class TestTechnicien(unittest.TestCase):
     def test_something(self):
